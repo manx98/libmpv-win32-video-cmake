@@ -195,12 +195,12 @@ jobs:
           PREFIX: ${{ secrets.CACHE_VERSION }}
         run: |
           cache_key=${CACHE_ID##*-}
-          curl -u shinchiro:$GH_TOKEN $CURL_RETRIES -s -o /dev/null -X DELETE -H "Accept: application/vnd.github.v3+json" https://api.github.com/repos/shinchiro/mpv-winbuild-cmake/actions/caches?key=$PREFIX-clang_root-$cache_key
-          curl -u shinchiro:$GH_TOKEN $CURL_RETRIES -s -o /dev/null -X DELETE -H "Accept: application/vnd.github.v3+json" https://api.github.com/repos/shinchiro/mpv-winbuild-cmake/actions/caches?key=$PREFIX-repository-$cache_key
-          curl -u shinchiro:$GH_TOKEN $CURL_RETRIES -s -o /dev/null -X DELETE -H "Accept: application/vnd.github.v3+json" https://api.github.com/repos/shinchiro/mpv-winbuild-cmake/actions/caches?key=$PREFIX-clang-i686_toolchain-$cache_key
-          curl -u shinchiro:$GH_TOKEN $CURL_RETRIES -s -o /dev/null -X DELETE -H "Accept: application/vnd.github.v3+json" https://api.github.com/repos/shinchiro/mpv-winbuild-cmake/actions/caches?key=$PREFIX-clang-x86_64_toolchain-$cache_key
-          curl -u shinchiro:$GH_TOKEN $CURL_RETRIES -s -o /dev/null -X DELETE -H "Accept: application/vnd.github.v3+json" https://api.github.com/repos/shinchiro/mpv-winbuild-cmake/actions/caches?key=$PREFIX-clang-x86_64_v3_toolchain-$cache_key
-          curl -u shinchiro:$GH_TOKEN $CURL_RETRIES -s -o /dev/null -X DELETE -H "Accept: application/vnd.github.v3+json" https://api.github.com/repos/shinchiro/mpv-winbuild-cmake/actions/caches?key=$PREFIX-clang-aarch64_toolchain-$cache_key
+          curl -u manx98:$GH_TOKEN $CURL_RETRIES -s -o /dev/null -X DELETE -H "Accept: application/vnd.github.v3+json" https://api.github.com/repos/manx98/mpv-winbuild-cmake/actions/caches?key=$PREFIX-clang_root-$cache_key
+          curl -u manx98:$GH_TOKEN $CURL_RETRIES -s -o /dev/null -X DELETE -H "Accept: application/vnd.github.v3+json" https://api.github.com/repos/manx98/mpv-winbuild-cmake/actions/caches?key=$PREFIX-repository-$cache_key
+          curl -u manx98:$GH_TOKEN $CURL_RETRIES -s -o /dev/null -X DELETE -H "Accept: application/vnd.github.v3+json" https://api.github.com/repos/manx98/mpv-winbuild-cmake/actions/caches?key=$PREFIX-clang-i686_toolchain-$cache_key
+          curl -u manx98:$GH_TOKEN $CURL_RETRIES -s -o /dev/null -X DELETE -H "Accept: application/vnd.github.v3+json" https://api.github.com/repos/manx98/mpv-winbuild-cmake/actions/caches?key=$PREFIX-clang-x86_64_toolchain-$cache_key
+          curl -u manx98:$GH_TOKEN $CURL_RETRIES -s -o /dev/null -X DELETE -H "Accept: application/vnd.github.v3+json" https://api.github.com/repos/manx98/mpv-winbuild-cmake/actions/caches?key=$PREFIX-clang-x86_64_v3_toolchain-$cache_key
+          curl -u manx98:$GH_TOKEN $CURL_RETRIES -s -o /dev/null -X DELETE -H "Accept: application/vnd.github.v3+json" https://api.github.com/repos/manx98/mpv-winbuild-cmake/actions/caches?key=$PREFIX-clang-aarch64_toolchain-$cache_key
 
   release:
     name: Upload releases
@@ -267,7 +267,7 @@ jobs:
           **Workflow run**: $GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID
           END
           )
-          id=$(curl -u Predidit:$GH_TOKEN $CURL_RETRIES -s -X POST -H "Accept: application/vnd.github.v3+json" https://api.github.com/repos/Predidit/libmpv-win32-video-cmake/releases -d @- <<END | jq -r '.id'
+          id=$(curl -u Predidit:$GH_TOKEN $CURL_RETRIES -s -X POST -H "Accept: application/vnd.github.v3+json" https://api.github.com/repos/manx98/libmpv-win32-video-cmake/releases -d @- <<END | jq -r '.id'
           {
             "tag_name": "$short_date",
             "name": "$short_date",
@@ -275,4 +275,4 @@ jobs:
           }
           END
           )
-          for file in release/*.7z; do curl -u Predidit:$GH_TOKEN $CURL_RETRIES -X POST -H "Accept: application/vnd.github.v3+json" -H "Content-Type: $(file -b --mime-type $file)" https://uploads.github.com/repos/Predidit/libmpv-win32-video-cmake/releases/$id/assets?name=$(basename $file) --data-binary @$file; done
+          for file in release/*.7z; do curl -u Predidit:$GH_TOKEN $CURL_RETRIES -X POST -H "Accept: application/vnd.github.v3+json" -H "Content-Type: $(file -b --mime-type $file)" https://uploads.github.com/repos/manx98/libmpv-win32-video-cmake/releases/$id/assets?name=$(basename $file) --data-binary @$file; done
